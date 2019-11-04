@@ -15,7 +15,7 @@ def inputGetFile(String savedfile = null) {
     }
 
     // Read contents and write to workspace
-    writeFile(file: filename, encoding: 'Base64', text: filedata.read().getText())
+    writeFile(file: filename, text: filedata.read().getText())
 
     // Remove the file from the master to avoid stuff like secret leakage
     filedata.delete()
