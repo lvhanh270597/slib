@@ -5,7 +5,7 @@ def inputGetFile(String savedfile = null) {
     // the filename will not be included in the upload data, so optionally allow it to be specified
 
     if (savedfile == null) {
-        def inputFile = input message: 'Upload file', parameters: [file(name: 'library_data_upload'), string(name: 'filename', defaultValue: 'demo-backend-1.0-SNAPSHOT.jar')]
+        def inputFile = input message: 'Upload file', parameters: [file(name: 'library_data_upload'), string(name: 'filename', defaultValue: 'test.dat')]
         filedata = inputFile['library_data_upload']
         filename = inputFile['filename']
     } else {
@@ -15,7 +15,8 @@ def inputGetFile(String savedfile = null) {
     }
 
     // Read contents and write to workspace
-    writeFile(file: filename, encoding: 'Base64', text: filedata.read().getBytes().encodeBase64().toString())
+    writeFile(file: filename, encoding: 'Base64', text: filedata.read().getText())
+
     // Remove the file from the master to avoid stuff like secret leakage
     filedata.delete()
     return filename
